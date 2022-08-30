@@ -24,20 +24,24 @@
  * @license   GPL-3.0-or-later
  */
 
-if ( defined( 'MOLLIE_API_KEY' ) ) {
-    $mollie_config_id = get_option( 'pronamic_pay_mollie_config_id' );
+add_action( 'init', function() {
+    if ( defined( 'MOLLIE_API_KEY' ) ) {
+        $mollie_config_id = get_option( 'pronamic_pay_mollie_config_id' );
 
-    if ( 'publish' !== get_post_status( $mollie_config_id ) ) {
-        $mollie_config_id = wp_insert_post(
-            [
-                'post_type'  => 'pronamic_gateway',
-                'post_title' => 'Mollie - Test',
-                'meta_input' => [
-                    '_pronamic_gateway_mollie_api_key' => MOLLIE_API_KEY,
-                ],
-            ]
-        );
+        if ( 'publish' !== get_post_status( $mollie_config_id ) ) {
+            $mollie_config_id = wp_insert_post(
+                [
+                    'post_type'   => 'pronamic_gateway',
+                    'post_status' => 'publish',
+                    'post_title'  => 'Mollie - Test',
+                    'meta_input'  => [
+                        '_pronamic_gateway_id'             => 'mollie',
+                        '_pronamic_gateway_mollie_api_key' => MOLLIE_API_KEY,
+                    ],
+                ]
+            );
 
-        update_option( 'pronamic_pay_mollie_config_id', $mollie_config_id );
+            update_option( 'pronamic_pay_mollie_config_id', $mollie_config_id );
+        }
     }
-}
+} );

@@ -44,4 +44,25 @@ add_action( 'init', function() {
             update_option( 'pronamic_pay_mollie_config_id', $mollie_config_id );
         }
     }
+
+    if ( defined( 'BUCKAROO_WEBSITE_KEY' ) && defined( 'BUCKAROO_SECRET_KEY' ) ) {
+        $buckaroo_config_id = get_option( 'pronamic_pay_buckaroo_config_id' );
+
+        if ( 'publish' !== get_post_status( $buckaroo_config_id ) ) {
+            $buckaroo_config_id = wp_insert_post(
+                [
+                    'post_type'   => 'pronamic_gateway',
+                    'post_status' => 'publish',
+                    'post_title'  => 'Buckaroo - Test',
+                    'meta_input'  => [
+                        '_pronamic_gateway_id'                   => 'buckaroo',
+                        '_pronamic_gateway_buckaroo_website_key' => BUCKAROO_WEBSITE_KEY,
+                        '_pronamic_gateway_buckaroo_secret_key'  => BUCKAROO_SECRET_KEY,
+                    ],
+                ]
+            );
+
+            update_option( 'pronamic_pay_buckaroo_config_id', $buckaroo_config_id );
+        }
+    }
 } );

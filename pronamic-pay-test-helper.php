@@ -76,8 +76,8 @@ add_action( 'init', function() {
                     'post_status' => 'publish',
                     'post_title'  => 'PayPal - Test',
                     'meta_input'  => [
-                        '_pronamic_gateway_id'             => 'paypal',
-                        '_pronamic_gateway_mollie_api_key' => PRONAMIC_PAY_PAYPAL_EMAIL,
+                        '_pronamic_gateway_id'           => 'paypal',
+                        '_pronamic_gateway_paypal_email' => PRONAMIC_PAY_PAYPAL_EMAIL,
                     ],
                 ]
             );

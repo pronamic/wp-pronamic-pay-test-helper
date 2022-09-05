@@ -55,7 +55,7 @@ add_action( 'init', function() {
                     'post_status' => 'publish',
                     'post_title'  => 'Buckaroo - Test',
                     'meta_input'  => [
-                        '_pronamic_gateway_id'                   => 'buckaroo',
+                        '_pronamic_gateway_id'                   => 'buckaroo-test',
                         '_pronamic_gateway_buckaroo_website_key' => BUCKAROO_WEBSITE_KEY,
                         '_pronamic_gateway_buckaroo_secret_key'  => BUCKAROO_SECRET_KEY,
                     ],

@@ -65,4 +65,24 @@ add_action( 'init', function() {
             update_option( 'pronamic_pay_buckaroo_config_id', $buckaroo_config_id );
         }
     }
+
+    if ( defined( 'PRONAMIC_PAY_PAYPAL_EMAIL' ) ) {
+        $paypal_config_id = get_option( 'pronamic_pay_paypal_config_id' );
+
+        if ( 'publish' !== get_post_status( $paypal_config_id ) ) {
+            $paypal_config_id = wp_insert_post(
+                [
+                    'post_type'   => 'pronamic_gateway',
+                    'post_status' => 'publish',
+                    'post_title'  => 'PayPal - Test',
+                    'meta_input'  => [
+                        '_pronamic_gateway_id'           => 'paypal',
+                        '_pronamic_gateway_paypal_email' => PRONAMIC_PAY_PAYPAL_EMAIL,
+                    ],
+                ]
+            );
+
+            update_option( 'pronamic_pay_paypal_config_id', $paypal_config_id );
+        }
+    }
 } );
